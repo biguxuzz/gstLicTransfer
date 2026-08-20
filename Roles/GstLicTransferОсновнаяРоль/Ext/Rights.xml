@@ -1,59 +1,59 @@
-﻿<Rights xmlns="http://v8.1c.ru/8.2/roles" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Rights" version="2.20">
+<Rights xmlns="http://v8.1c.ru/8.2/roles" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Rights" version="2.20">
 	<setForNewObjects>false</setForNewObjects>
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
 		<name>Document.ПередачаЛицензий</name>
-		<objectRight>
-			<right>Read</right>
+		<right>
+			<name>Read</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>Insert</right>
+		</right>
+		<right>
+			<name>Insert</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>Update</right>
+		</right>
+		<right>
+			<name>Update</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>Delete</right>
+		</right>
+		<right>
+			<name>Delete</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>View</right>
+		</right>
+		<right>
+			<name>View</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>InteractiveInsert</right>
+		</right>
+		<right>
+			<name>InteractiveInsert</name>
 			<value>true</value>
-		</objectRight>
+		</right>
 	</object>
 	<object>
 		<name>Catalog.ШаблоныПередачиЛицензий</name>
-		<objectRight>
-			<right>Read</right>
+		<right>
+			<name>Read</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>Insert</right>
+		</right>
+		<right>
+			<name>Insert</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>Update</right>
+		</right>
+		<right>
+			<name>Update</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>Delete</right>
+		</right>
+		<right>
+			<name>Delete</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>View</right>
+		</right>
+		<right>
+			<name>View</name>
 			<value>true</value>
-		</objectRight>
-		<objectRight>
-			<right>InteractiveInsert</right>
+		</right>
+		<right>
+			<name>InteractiveInsert</name>
 			<value>true</value>
-		</objectRight>
+		</right>
 	</object>
 </Rights>

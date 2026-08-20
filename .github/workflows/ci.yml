@@ -100,17 +100,37 @@ jobs:
         run: |
           mkdir binary
           mkdir server-data
-          ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db create --import=buildcf --apply --force
+          $log = "buildcf-create.log"
+          ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db create --import=buildcf --apply --force 2>&1 | Tee-Object $log
+          if ($LASTEXITCODE -ne 0) {
+            $tail = ((Get-Content $log | Select-Object -Last 25) -join " | ")
+            Write-Host "::error title=ibcmd create::$tail"
+            exit 1
+          }
         timeout-minutes: 10
 
       - name: Import extension
-        run: ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db config import --extension="GstLicTransfer" "$env:GITHUB_WORKSPACE"
+        run: |
+          $log = "ext-import.log"
+          ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db config import --extension="GstLicTransfer" "$env:GITHUB_WORKSPACE" 2>&1 | Tee-Object $log
+          if ($LASTEXITCODE -ne 0) {
+            $tail = ((Get-Content $log | Select-Object -Last 25) -join " | ")
+            Write-Host "::error title=ibcmd import ext::$tail"
+            exit 1
+          }
         timeout-minutes: 10
 
       - name: Save extension (.cfe)
         env:
           CFE_FILE: ${{ env.CFE_FILE }}
-        run: ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db config save --extension="GstLicTransfer" "binary\$env:CFE_FILE"
+        run: |
+          $log = "ext-save.log"
+          ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db config save --extension="GstLicTransfer" "binary\$env:CFE_FILE" 2>&1 | Tee-Object $log
+          if ($LASTEXITCODE -ne 0) {
+            $tail = ((Get-Content $log | Select-Object -Last 25) -join " | ")
+            Write-Host "::error title=ibcmd save ext::$tail"
+            exit 1
+          }
         timeout-minutes: 5
 
       - name: Upload build artifacts
