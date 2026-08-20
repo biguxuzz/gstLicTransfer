@@ -10,6 +10,8 @@
 		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензий.Module" id="7712de90-2d5b-4980-8a18-cad646439c1f.0" configVersion="8cf960a1159e670ff8cfc67214fefa9ffb4bccb7"/>
 		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензийКлиент" id="baac5342-b80b-4918-b406-390d2d5a0b46" configVersion="6c7116012c049e2cae2293f388559143a2d49192"/>
 		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензийКлиент.Module" id="baac5342-b80b-4918-b406-390d2d5a0b46.0" configVersion="e42e752a46af40667620027cc8eb5854d27391bb"/>
+		<Metadata name="ExchangePlan.МиграцияПриложений" id="cf4a1e95-919b-4674-b701-2fb8fe3517ec" configVersion="dfb12423025ca32f773696951ea5e6553ffc8a57"/>
+		<Metadata name="ExchangePlan.МиграцияПриложений.Content" id="cf4a1e95-919b-4674-b701-2fb8fe3517ec.0" configVersion="1fd24cdc23e33b27e0d61d772afcc6294bd9d493"/>
 		<Metadata name="Catalog.ШаблоныПередачиЛицензий" id="692b44e0-7253-41e3-a88a-ebfdf6cefd1b" configVersion="b129231b5888562d89f28179811f7063402ccd22">
 			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Attribute.ИмяМакета" id="e16b8380-52dd-4744-a31a-045596ebaab8"/>
 			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Attribute.ШаблонХранилище" id="5899c76e-a1d0-4cc9-b664-0cf98c8026d3"/>

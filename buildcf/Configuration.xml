@@ -71,6 +71,7 @@
 		<Catalog>Организации</Catalog>
 		<Catalog>Контрагенты</Catalog>
 		<Catalog>Пользователи</Catalog>
+		<ExchangePlan>МиграцияПриложений</ExchangePlan>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

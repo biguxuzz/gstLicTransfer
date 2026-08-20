@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:pal="http://v8.1c.ru/8.1/data/ui/colors/palette" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
+	<ExchangePlan uuid="cf4a1e95-919b-4674-b701-2fb8fe3517ec">
+		<InternalInfo>
+			<xr:ThisNode>31026a86-ad29-4f5e-842a-29affe0e7e7d</xr:ThisNode>
+			<xr:GeneratedType name="ExchangePlanObject.МиграцияПриложений" category="Object">
+				<xr:TypeId>e16bf90a-0331-43cd-85de-13eaf36c9407</xr:TypeId>
+				<xr:ValueId>aedc7c1d-af23-4f87-a74d-c945bdd8612e</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="ExchangePlanRef.МиграцияПриложений" category="Ref">
+				<xr:TypeId>3308d8c1-418a-4087-8cb3-e3aac5c5970a</xr:TypeId>
+				<xr:ValueId>3cd97867-f2bf-4c18-999e-1420802ab97e</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="ExchangePlanSelection.МиграцияПриложений" category="Selection">
+				<xr:TypeId>66991d3a-8b27-4501-bea5-fdd492002db7</xr:TypeId>
+				<xr:ValueId>988d6f75-922c-4243-8359-165ddb762943</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="ExchangePlanList.МиграцияПриложений" category="List">
+				<xr:TypeId>e4c6445e-8b6e-4410-a049-fdd2fbd27fc5</xr:TypeId>
+				<xr:ValueId>a356e23b-a41f-437f-94ba-6cdc7b9757c2</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="ExchangePlanManager.МиграцияПриложений" category="Manager">
+				<xr:TypeId>d738196a-2ac5-42fe-8a82-365e3354d4c5</xr:TypeId>
+				<xr:ValueId>4ec77412-24d1-4403-b2e6-c3382575e38d</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<Name>МиграцияПриложений</Name>
+			<Synonym>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Миграция приложений</v8:content>
+				</v8:item>
+			</Synonym>
+			<Comment/>
+			<ExtendedConfigurationObject>b5c14196-5850-49a2-8f8a-1153f5f81e31</ExtendedConfigurationObject>
+			<DistributedInfoBase>false</DistributedInfoBase>
+			<IncludeConfigurationExtensions>false</IncludeConfigurationExtensions>
+			<CreateOnInput>DontUse</CreateOnInput>
+			<ChoiceHistoryOnInput>Auto</ChoiceHistoryOnInput>
+			<IncludeHelpInContents>false</IncludeHelpInContents>
+			<DataLockControlMode>Managed</DataLockControlMode>
+			<DataHistory>DontUse</DataHistory>
+			<UpdateDataHistoryImmediatelyAfterWrite>false</UpdateDataHistoryImmediatelyAfterWrite>
+			<ExecuteAfterWriteDataHistoryVersionProcessing>false</ExecuteAfterWriteDataHistoryVersionProcessing>
+		</Properties>
+		<ChildObjects/>
+	</ExchangePlan>
+</MetaDataObject>

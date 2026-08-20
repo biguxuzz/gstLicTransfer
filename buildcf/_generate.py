@@ -34,6 +34,8 @@ PARENT_OBJECTS = [
     ("Catalog", "Организации",   "fd0c3124-91f5-4c1e-bbc0-f2163e61ff2a"),
     ("Catalog", "Контрагенты",   "51b9a2d4-bd53-4f40-824e-e3b4e323279e"),
     ("Catalog", "Пользователи",  "bffeceba-fe82-4593-9d34-edc03d99fa44"),
+    # ExchangePlan - заимствуется расширением (состав для сервиса 1С:МиграцияПриложений)
+    ("ExchangePlan", "МиграцияПриложений", "b5c14196-5850-49a2-8f8a-1153f5f81e31"),
 ]
 
 NS = ('xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" '
@@ -140,9 +142,21 @@ def main():
 
     # 1. Заглушки каталогов
     synonyms = {"Организации": "Организации", "Контрагенты": "Контрагенты", "Пользователи": "Пользователи"}
-    for _, name, _ in PARENT_OBJECTS:
+    for obj_type, name, _ in PARENT_OBJECTS:
+        if obj_type != "Catalog":
+            continue
         write_file(f"Catalogs/{name}.xml", catalog_stub(name, synonyms[name]))
         print(f"  Wrote Catalogs/{name}.xml (stub)")
+
+    # 2. Заглушка плана обмена МиграцияПриложений
+    #    (мета из БП с вырезанными реквизитами/формами; Ext/Content.xml не нужен)
+    plan = read_acc("ExchangePlans/МиграцияПриложений.xml")
+    plan = plan.replace('version="2.21"', 'version="2.20"', 1)
+    m = re.search(r"<ChildObjects>.*?</ChildObjects>", plan, re.S)
+    assert m
+    plan = plan.replace(m.group(0), "<ChildObjects/>")
+    write_file("ExchangePlans/МиграцияПриложений.xml", plan)
+    print("  Wrote ExchangePlans/МиграцияПриложений.xml (stub)")
 
     # 2. Language Русский (копия из БП с понижением XCF-версии)
     lang = read_acc("Languages/Русский.xml")

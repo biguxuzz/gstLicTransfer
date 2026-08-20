@@ -70,6 +70,7 @@
 			<Role>GstLicTransferОсновнаяРоль</Role>
 			<CommonModule>ПечатьАктовПередачиЛицензий</CommonModule>
 			<CommonModule>ПечатьАктовПередачиЛицензийКлиент</CommonModule>
+			<ExchangePlan>МиграцияПриложений</ExchangePlan>
 			<Catalog>ШаблоныПередачиЛицензий</Catalog>
 			<Document>ПередачаЛицензий</Document>
 		</ChildObjects>

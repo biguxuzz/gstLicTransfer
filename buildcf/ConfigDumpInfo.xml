@@ -6,5 +6,6 @@
 		<Metadata name="Catalog.Организации" id="fd0c3124-91f5-4c1e-bbc0-f2163e61ff2a" configVersion="fd0c312491f54c1ebbc0f2163e61ff2a"/>
 		<Metadata name="Catalog.Контрагенты" id="51b9a2d4-bd53-4f40-824e-e3b4e323279e" configVersion="51b9a2d4bd534f40824ee3b4e323279e"/>
 		<Metadata name="Catalog.Пользователи" id="bffeceba-fe82-4593-9d34-edc03d99fa44" configVersion="bffecebafe8245939d34edc03d99fa44"/>
+		<Metadata name="ExchangePlan.МиграцияПриложений" id="b5c14196-5850-49a2-8f8a-1153f5f81e31" configVersion="b5c14196585049a28f8a1153f5f81e31"/>
 	</ConfigVersions>
 </ConfigDumpInfo>

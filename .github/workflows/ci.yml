@@ -9,6 +9,7 @@ on:
       - "Catalogs/**"
       - "CommonModules/**"
       - "Documents/**"
+      - "ExchangePlans/**"
       - "Languages/**"
       - "Roles/**"
       - "Subsystems/**"
