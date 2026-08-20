@@ -22,15 +22,7 @@
 				<xr:TypeId>f0dbf09c-0a8d-4153-95d7-1394a077e140</xr:TypeId>
 				<xr:ValueId>2a221f34-5f8f-4eb9-8f78-f55f1b94d9e6</xr:ValueId>
 			</xr:GeneratedType>
-			<xr:GeneratedType name="DocumentTabularSection.ПередачаЛицензий.ПередаваемыеПродукты" category="TabularSection">
-				<xr:TypeId>893224c2-cd27-4061-ad94-8623c97a7e07</xr:TypeId>
-				<xr:ValueId>ff2781c8-d72d-4715-9746-8c6e19156717</xr:ValueId>
-			</xr:GeneratedType>
-			<xr:GeneratedType name="DocumentTabularSectionRow.ПередачаЛицензий.ПередаваемыеПродукты" category="TabularSectionRow">
-				<xr:TypeId>2248485f-fbf5-47f6-b3b5-33d53df81754</xr:TypeId>
-				<xr:ValueId>f35f417c-808b-4c8d-b0df-f603db8e28d1</xr:ValueId>
-			</xr:GeneratedType>
-		</InternalInfo>
+								</InternalInfo>
 		<Properties>
 			<Name>ПередачаЛицензий</Name>
 			<Synonym>
@@ -443,6 +435,16 @@
 				</Properties>
 			</Attribute>
 			<TabularSection uuid="b938e316-f1d4-445f-8360-a58bc9172dcd">
+				<InternalInfo>
+					<xr:GeneratedType name="DocumentTabularSection.ПередачаЛицензий.ПередаваемыеПродукты" category="TabularSection">
+						<xr:TypeId>893224c2-cd27-4061-ad94-8623c97a7e07</xr:TypeId>
+						<xr:ValueId>ff2781c8-d72d-4715-9746-8c6e19156717</xr:ValueId>
+					</xr:GeneratedType>
+					<xr:GeneratedType name="DocumentTabularSectionRow.ПередачаЛицензий.ПередаваемыеПродукты" category="TabularSectionRow">
+						<xr:TypeId>2248485f-fbf5-47f6-b3b5-33d53df81754</xr:TypeId>
+						<xr:ValueId>f35f417c-808b-4c8d-b0df-f603db8e28d1</xr:ValueId>
+					</xr:GeneratedType>
+				</InternalInfo>
 				
 				<Properties>
 					<Name>ПередаваемыеПродукты</Name>
