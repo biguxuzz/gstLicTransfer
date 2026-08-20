@@ -271,6 +271,13 @@
 		</FormattedDocumentField>
 	</ChildItems>
 	<Attributes>
+		<Attribute name="Объект" id="2">
+			<Type>
+				<v8:Type>cfg:CatalogObject.ШаблоныПередачиЛицензий</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+		</Attribute>
 		<Attribute name="ФорматированныйДокумент" id="1">
 			<Title>
 			<v8:item>
