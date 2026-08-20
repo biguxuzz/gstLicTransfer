@@ -6,7 +6,20 @@
 			<v8:content>Новый шаблон акта передачи лицензий</v8:content>
 		</v8:item>
 	</Title>
-	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаОткрытьШаблон" id="20">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ОткрытьШаблон</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.Next</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ФормаОткрытьШаблонРасширеннаяПодсказка" id="21"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
 	<Events>
 		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
 	</Events>
@@ -23,12 +36,29 @@
 		</LabelDecoration>
 		<Table name="СписокМакетов" id="4">
 			<Representation>List</Representation>
+			<CommandBarLocation>None</CommandBarLocation>
 			<ReadOnly>true</ReadOnly>
 			<EnableStartDrag>false</EnableStartDrag>
 			<DataPath>СписокМакетов</DataPath>
 			<RowPictureDataPath>СписокМакетов.Picture</RowPictureDataPath>
+			<CommandSet>
+				<ExcludedCommand>Add</ExcludedCommand>
+				<ExcludedCommand>CancelSearch</ExcludedCommand>
+				<ExcludedCommand>Change</ExcludedCommand>
+				<ExcludedCommand>Copy</ExcludedCommand>
+				<ExcludedCommand>Delete</ExcludedCommand>
+				<ExcludedCommand>EndEdit</ExcludedCommand>
+				<ExcludedCommand>Find</ExcludedCommand>
+				<ExcludedCommand>FindByCurrentValue</ExcludedCommand>
+				<ExcludedCommand>MoveDown</ExcludedCommand>
+				<ExcludedCommand>MoveUp</ExcludedCommand>
+				<ExcludedCommand>SearchEverywhere</ExcludedCommand>
+				<ExcludedCommand>SearchHistory</ExcludedCommand>
+				<ExcludedCommand>SelectAll</ExcludedCommand>
+				<ExcludedCommand>ShowMultipleSelection</ExcludedCommand>
+				<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+			</CommandSet>
 			<ContextMenu name="СписокМакетовКонтекстноеМеню" id="5"/>
-			<AutoCommandBar name="СписокМакетовКоманднаяПанель" id="6"/>
 			<ExtendedTooltip name="СписокМакетовРасширеннаяПодсказка" id="7"/>
 			<SearchStringAddition name="СписокМакетовСтрокаПоиска" id="8">
 				<AdditionSource>
@@ -65,4 +95,21 @@
 			<Settings xsi:type="v8:TypeDescription"/>
 		</Attribute>
 	</Attributes>
+	<Commands>
+		<Command name="ОткрытьШаблон" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Открыть шаблон</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать шаблон на основании выбранного типового макета (или пустой шаблон)</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ОткрытьШаблонПоКнопке</Action>
+		</Command>
+	</Commands>
 </Form>

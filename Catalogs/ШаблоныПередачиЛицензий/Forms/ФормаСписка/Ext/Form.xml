@@ -9,7 +9,6 @@
 			<DataPath>Список</DataPath>
 			<RowPictureDataPath>Список.DefaultPicture</RowPictureDataPath>
 			<ContextMenu name="СписокКонтекстноеМеню" id="2"/>
-			<AutoCommandBar name="СписокКоманднаяПанель" id="3"/>
 			<ExtendedTooltip name="СписокРасширеннаяПодсказка" id="4"/>
 			<SearchStringAddition name="СписокСтрокаПоиска" id="5">
 				<AdditionSource>
