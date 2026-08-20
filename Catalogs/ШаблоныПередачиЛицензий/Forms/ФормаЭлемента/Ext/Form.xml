@@ -41,7 +41,6 @@
 			<ChildItems>
 				<InputField name="ПредставлениеМакета" id="11">
 					<DataPath>СписокМакетов.Presentation</DataPath>
-					<EditMode>View</EditMode>
 					<Width>40</Width>
 					<ContextMenu name="ПредставлениеМакетаКонтекстноеМеню" id="12"/>
 					<ExtendedTooltip name="ПредставлениеМакетаРасширеннаяПодсказка" id="13"/>

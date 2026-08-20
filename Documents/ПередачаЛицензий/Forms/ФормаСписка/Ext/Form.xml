@@ -83,10 +83,8 @@
 						<dcsset:viewMode>Normal</dcsset:viewMode>
 						<dcsset:userSettingID>b75ecce1-3f79-4e62-8fbf-94240cd0d02a</dcsset:userSettingID>
 					</dcsset:conditionalAppearance>
-					<dcsset:itemViewMode>
-						<dcsset:viewMode>Normal</dcsset:viewMode>
-						<dcsset:userSettingID>c6bdf933-6d0d-4571-9d75-99a24b04d80e</dcsset:userSettingID>
-					</dcsset:itemViewMode>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+						<dcsset:itemsUserSettingID>c6bdf933-6d0d-4571-9d75-99a24b04d80e</dcsset:itemsUserSettingID>
 				</ListSettings>
 			</Settings>
 		</Attribute>
