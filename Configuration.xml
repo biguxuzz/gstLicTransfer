@@ -54,7 +54,7 @@
 				<xr:Item xsi:type="xr:MDObjectRef">Role.GstLicTransferОсновнаяРоль</xr:Item>
 			</DefaultRoles>
 			<Vendor/>
-			<Version>1.0.0.9</Version>
+			<Version>1.0.0.10</Version>
 			<Caption/>
 			<ShortCaption/>
 			<BriefInformation/>
