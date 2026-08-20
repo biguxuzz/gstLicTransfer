@@ -155,6 +155,9 @@ def main():
     m = re.search(r"<ChildObjects>.*?</ChildObjects>", plan, re.S)
     assert m
     plan = plan.replace(m.group(0), "<ChildObjects/>")
+    # вычистить ссылки на формы и команды, отсутствующие в заглушке
+    plan = re.sub(r"(<Default(?:Object|List|Choice)Form>)[^<]+", lambda m: m.group(1), plan)
+    plan = re.sub(r"(<DefaultRunForm>)[^<]+", lambda m: m.group(1), plan)
     write_file("ExchangePlans/МиграцияПриложений.xml", plan)
     print("  Wrote ExchangePlans/МиграцияПриложений.xml (stub)")
 

@@ -48,8 +48,8 @@
 			<SearchStringModeOnInputByString>Begin</SearchStringModeOnInputByString>
 			<FullTextSearchOnInputByString>DontUse</FullTextSearchOnInputByString>
 			<ChoiceDataGetModeOnInputByString>Directly</ChoiceDataGetModeOnInputByString>
-			<DefaultObjectForm>ExchangePlan.МиграцияПриложений.Form.ФормаУзла</DefaultObjectForm>
-			<DefaultListForm>ExchangePlan.МиграцияПриложений.Form.ФормаСписка</DefaultListForm>
+			<DefaultObjectForm></DefaultObjectForm>
+			<DefaultListForm></DefaultListForm>
 			<DefaultChoiceForm/>
 			<AuxiliaryObjectForm/>
 			<AuxiliaryListForm/>
