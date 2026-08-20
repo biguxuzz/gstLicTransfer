@@ -1,0 +1,147 @@
+﻿<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcssch="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:pal="http://v8.1c.ru/8.1/data/ui/colors/palette" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаПечатьАкта" id="100">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ПечатьАкта</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.Print</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ФормаПечатьАктаРасширеннаяПодсказка" id="101"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаШапка" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Шапка</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Шапка документа</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<Behavior>Usual</Behavior>
+			<Representation>NormalSeparation</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаШапкаРасширеннаяПодсказка" id="2"/>
+			<ChildItems>
+				<UsualGroup name="ГруппаОрганизация" id="3">
+					<Group>AlwaysHorizontal</Group>
+					<Behavior>Usual</Behavior>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаОрганизацияРасширеннаяПодсказка" id="4"/>
+					<ChildItems>
+						<InputField name="Номер" id="5">
+							<DataPath>Объект.Number</DataPath>
+							<ContextMenu name="НомерКонтекстноеМеню" id="6"/>
+							<ExtendedTooltip name="НомерРасширеннаяПодсказка" id="7"/>
+						</InputField>
+						<InputField name="Дата" id="8">
+							<DataPath>Объект.Date</DataPath>
+							<ContextMenu name="ДатаКонтекстноеМеню" id="9"/>
+							<ExtendedTooltip name="ДатаРасширеннаяПодсказка" id="10"/>
+						</InputField>
+						<InputField name="Организация" id="11">
+							<DataPath>Объект.Организация</DataPath>
+							<ContextMenu name="ОрганизацияКонтекстноеМеню" id="12"/>
+							<ExtendedTooltip name="ОрганизацияРасширеннаяПодсказка" id="13"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="ГруппаКонтрагенты" id="14">
+					<Group>AlwaysHorizontal</Group>
+					<Behavior>Usual</Behavior>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаКонтрагентыРасширеннаяПодсказка" id="15"/>
+					<ChildItems>
+						<InputField name="КонтрагентПередающий" id="16">
+							<DataPath>Объект.КонтрагентПередающий</DataPath>
+							<ContextMenu name="КонтрагентПередающийКонтекстноеМеню" id="17"/>
+							<ExtendedTooltip name="КонтрагентПередающийРасширеннаяПодсказка" id="18"/>
+						</InputField>
+						<InputField name="КонтрагентПринимающий" id="19">
+							<DataPath>Объект.КонтрагентПринимающий</DataPath>
+							<ContextMenu name="КонтрагентПринимающийКонтекстноеМеню" id="20"/>
+							<ExtendedTooltip name="КонтрагентПринимающийРасширеннаяПодсказка" id="21"/>
+						</InputField>
+						<InputField name="Автор" id="22">
+							<DataPath>Объект.Автор</DataPath>
+							<ContextMenu name="АвторКонтекстноеМеню" id="23"/>
+							<ExtendedTooltip name="АвторРасширеннаяПодсказка" id="24"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<Table name="ПередаваемыеПродукты" id="25">
+			<Representation>List</Representation>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>false</EnableStartDrag>
+			<DataPath>Объект.ПередаваемыеПродукты</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="ПередаваемыеПродуктыКонтекстноеМеню" id="26"/>
+			<AutoCommandBar name="ПередаваемыеПродуктыКоманднаяПанель" id="27"/>
+			<ExtendedTooltip name="ПередаваемыеПродуктыРасширеннаяПодсказка" id="28"/>
+			<SearchStringAddition name="ПередаваемыеПродуктыСтрокаПоиска" id="29">
+				<AdditionSource>
+					<Item>ПередаваемыеПродукты</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ПередаваемыеПродуктыСтрокаПоискаКонтекстноеМеню" id="30"/>
+				<ExtendedTooltip name="ПередаваемыеПродуктыСтрокаПоискаРасширеннаяПодсказка" id="31"/>
+			</SearchStringAddition>
+			<ChildItems>
+				<InputField name="ПередаваемыеПродуктыПродукт" id="32">
+					<DataPath>Объект.ПередаваемыеПродукты.Продукт</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<Width>30</Width>
+					<ContextMenu name="ПередаваемыеПродуктыПродуктКонтекстноеМеню" id="33"/>
+					<ExtendedTooltip name="ПередаваемыеПродуктыПродуктРасширеннаяПодсказка" id="34"/>
+				</InputField>
+				<InputField name="ПередаваемыеПродуктыРегистрационныйНомер" id="35">
+					<DataPath>Объект.ПередаваемыеПродукты.РегистрационныйНомер</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ПередаваемыеПродуктыРегистрационныйНомерКонтекстноеМеню" id="36"/>
+					<ExtendedTooltip name="ПередаваемыеПродуктыРегистрационныйНомерРасширеннаяПодсказка" id="37"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+		<InputField name="Комментарий" id="38">
+			<DataPath>Объект.Комментарий</DataPath>
+			<AutoMaxHeight>false</AutoMaxHeight>
+			<Height>2</Height>
+			<ContextMenu name="КомментарийКонтекстноеМеню" id="39"/>
+			<ExtendedTooltip name="КомментарийРасширеннаяПодсказка" id="40"/>
+		</InputField>
+	</ChildItems>
+	<Commands>
+		<Command name="ПечатьАкта" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать акта</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать акта приема-передачи программных продуктов по шаблону</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПечатьАкта</Action>
+		</Command>
+	</Commands>
+</Form>

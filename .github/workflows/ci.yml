@@ -1,0 +1,132 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/**"
+      - "Catalogs/**"
+      - "CommonModules/**"
+      - "Documents/**"
+      - "Languages/**"
+      - "Roles/**"
+      - "Subsystems/**"
+      - "Configuration.xml"
+      - "ConfigDumpInfo.xml"
+      - "buildcf/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+env:
+  V8_VERSION: 8.3.27.1859
+  LANG: ru_RU.UTF-8
+
+jobs:
+  build_artifacts:
+    name: Build artifacts
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Install 1C:Enterprise
+        uses: 1CDevFlow/onec-setup-action@e1cd5937cb951c3cdeda4bf482f89da5f5e0b148
+        with:
+          type: onec
+          onec_version: ${{ env.V8_VERSION }}
+          cache: true
+        env:
+          ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+          ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+        timeout-minutes: 15
+
+      - name: Bump build version (ZZZ)
+        shell: pwsh
+        run: |
+          # Читаем текущую версию WW.XX.YY.ZZZ из Configuration.xml,
+          # инкрементируем ZZZ и коммитим обратно в репозиторий.
+          #
+          # ВАЖНО: НЕ используем [xml]$cfg + OuterXml — это пересоздаёт XML
+          # в одну строку, убирает BOM и меняет формат пустых тегов
+          # (<Tag/> -> <Tag />). 1С потом падает с XDTO-ошибками.
+          # Используем regex-замену строго внутри <Version>...</Version>.
+          $xmlPath = "Configuration.xml"
+          $bytes = [System.IO.File]::ReadAllBytes($xmlPath)
+          $hasBom = ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
+          $content = [System.Text.Encoding]::UTF8.GetString($bytes)
+          if (-not $hasBom) { Write-Host "::warning::Configuration.xml has no BOM" }
+          if ($content -notmatch '<Version>(?<v>\d+\.\d+\.\d+\.(?<zzz>\d+))</Version>') {
+            throw "Version node not found or has wrong format in $xmlPath"
+          }
+          $current = $Matches['v']
+          $zzz = [int]$Matches['zzz'] + 1
+          $parts = $current.Split('.')
+          $parts[3] = $zzz.ToString()
+          $new = $parts -join '.'
+          $newContent = [regex]::Replace($content, '<Version>[^<]+</Version>', "<Version>$new</Version>", 1)
+          if ($newContent -eq $content) { throw "Replacement failed" }
+          [System.IO.File]::WriteAllBytes("$PWD/$xmlPath", (New-Object System.Text.UTF8Encoding($true)).GetBytes($newContent))
+          Write-Host "Version: $current -> $new"
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $xmlPath
+          git commit -m "chore(version): bump ZZZ $current -> $new [skip ci]"
+          git push
+
+      - name: Resolve CFE artifact name
+        shell: pwsh
+        run: |
+          $raw = (Select-String -Path Configuration.xml -Pattern '<Version>(.+?)</Version>' | Select-Object -First 1).Matches.Groups[1].Value
+          $verUs = $raw -replace '\.', '_'
+          $file = "GstLicTransfer_${verUs}.cfe"
+          echo "EXT_VERSION=$verUs" >> $env:GITHUB_ENV
+          echo "EXT_VERSION_RAW=$raw" >> $env:GITHUB_ENV
+          echo "CFE_FILE=$file" >> $env:GITHUB_ENV
+          echo "CFE artifact: $file (Configuration.xml Version=$raw)"
+
+      - name: Create infobase from buildcf
+        run: |
+          mkdir binary
+          mkdir server-data
+          ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db create --import=buildcf --apply --force
+        timeout-minutes: 10
+
+      - name: Import extension
+        run: ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db config import --extension="GstLicTransfer" "$env:GITHUB_WORKSPACE"
+        timeout-minutes: 10
+
+      - name: Save extension (.cfe)
+        env:
+          CFE_FILE: ${{ env.CFE_FILE }}
+        run: ibcmd infobase --data="$env:GITHUB_WORKSPACE\server-data" --db-path=file-db config save --extension="GstLicTransfer" "binary\$env:CFE_FILE"
+        timeout-minutes: 5
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ env.CFE_FILE }}
+          path: binary\${{ env.CFE_FILE }}
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Create release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
+        with:
+          tag_name: v${{ env.EXT_VERSION_RAW }}
+          files: binary\${{ env.CFE_FILE }}
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          name: v${{ env.EXT_VERSION_RAW }}
+          token: ${{ secrets.GITHUB_TOKEN }}

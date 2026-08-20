@@ -1,0 +1,10 @@
+# Artefacts and CI runtime
+binary/
+server-data/
+
+# Python cache (buildcf/_generate.py is committed; only __pycache__ ignored)
+__pycache__/
+*.pyc
+
+# One-off dev generators (already applied; keep out of the repo)
+_tools/

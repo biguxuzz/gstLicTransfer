@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.20">
+	<ConfigVersions>
+		<Metadata name="Configuration.GstLicTransfer" id="a603acd2-c5bc-45e5-aa03-933baa47c28d" configVersion="eda58da2e358e9175d27a811cfe369cebcc92027"/>
+		<Metadata name="Language.Русский" id="8f7cb2fa-38db-4505-b421-4b47d92c8922" configVersion="a591ceef64d0ea1be208e95a588d0281a94552be"/>
+		<Metadata name="Subsystem.ПередачаЛицензий" id="b868e57e-4a86-4afe-8c9e-c8cdf2589c51" configVersion="3cab627f6f91d5e9934a8f06377d039e679de517"/>
+		<Metadata name="Role.GstLicTransferОсновнаяРоль" id="0dfb7bf2-3a20-4b65-baf2-8c912983241f" configVersion="4892ceff40278a9623c12def16de33b689fc8f9d"/>
+		<Metadata name="Role.GstLicTransferОсновнаяРоль.Rights" id="0dfb7bf2-3a20-4b65-baf2-8c912983241f.0" configVersion="a23a7f947daf6e1ee46bd31e585f4da07f4d9793"/>
+		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензий" id="7712de90-2d5b-4980-8a18-cad646439c1f" configVersion="6e37e31f6eef249e0e4e8a76a9de65401f96b305"/>
+		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензий.Module" id="7712de90-2d5b-4980-8a18-cad646439c1f.0" configVersion="8cf960a1159e670ff8cfc67214fefa9ffb4bccb7"/>
+		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензийКлиент" id="baac5342-b80b-4918-b406-390d2d5a0b46" configVersion="6c7116012c049e2cae2293f388559143a2d49192"/>
+		<Metadata name="CommonModule.ПечатьАктовПередачиЛицензийКлиент.Module" id="baac5342-b80b-4918-b406-390d2d5a0b46.0" configVersion="e42e752a46af40667620027cc8eb5854d27391bb"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий" id="692b44e0-7253-41e3-a88a-ebfdf6cefd1b" configVersion="b129231b5888562d89f28179811f7063402ccd22">
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Attribute.ИмяМакета" id="e16b8380-52dd-4744-a31a-045596ebaab8"/>
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Attribute.ШаблонХранилище" id="5899c76e-a1d0-4cc9-b664-0cf98c8026d3"/>
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаВыбора" id="bda18fe8-972b-4ced-8742-4768bef9b400"/>
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаРедактированияШаблона" id="2fb452cb-07ae-4ed9-a079-1c3ea1e22a27"/>
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаСписка" id="09af987a-37ff-434f-b8e7-71e1b5cfa27b"/>
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаЭлемента" id="9ac71931-fa2a-4b7b-8af3-c462796bf4e7"/>
+			<Metadata name="Catalog.ШаблоныПередачиЛицензий.Template.АктПриемаПередачиПродуктов1С" id="352e0f76-6484-43fc-9196-f08ef2fb8829"/>
+		</Metadata>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаВыбора.Form" id="bda18fe8-972b-4ced-8742-4768bef9b400.0" configVersion="574f894b1dcca74828c5ba2c6c711c16d5ecaf04"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаРедактированияШаблона.Form" id="2fb452cb-07ae-4ed9-a079-1c3ea1e22a27.0" configVersion="1bf5149217eafa362ea6b00d94a2a3a36a52f87b"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаСписка.Form" id="09af987a-37ff-434f-b8e7-71e1b5cfa27b.0" configVersion="d6f6baaee7006c2ee2027e50deff1a6c8450b616"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.Form.ФормаЭлемента.Form" id="9ac71931-fa2a-4b7b-8af3-c462796bf4e7.0" configVersion="aaecdf5396ca41acca27472a5f8407cd5712d713"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.ManagerModule" id="692b44e0-7253-41e3-a88a-ebfdf6cefd1b.3" configVersion="7fb3041a4e33e1c46cdf4b79658c3a7ada28f409"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.ObjectModule" id="692b44e0-7253-41e3-a88a-ebfdf6cefd1b.0" configVersion="3ec24a476a701d059b33824291e7edf8289645c0"/>
+		<Metadata name="Catalog.ШаблоныПередачиЛицензий.Template.АктПриемаПередачиПродуктов1С.Template" id="352e0f76-6484-43fc-9196-f08ef2fb8829.0" configVersion="cefef8e2d81055be34becc6682252f6259da2fcf"/>
+		<Metadata name="Document.ПередачаЛицензий" id="0223668a-24da-4b84-be6b-6ca96137c817" configVersion="e3d58dc1ee94156f542de6aeec711ab6dd5d2415">
+			<Metadata name="Document.ПередачаЛицензий.Attribute.Автор" id="facd2c2d-08e9-4ee0-84c2-fa72d1fbeacb"/>
+			<Metadata name="Document.ПередачаЛицензий.Attribute.Комментарий" id="9a743997-7047-4cec-a023-8207ddc4d1c0"/>
+			<Metadata name="Document.ПередачаЛицензий.Attribute.КонтрагентПередающий" id="036e5305-7681-4aeb-a62f-537def77c316"/>
+			<Metadata name="Document.ПередачаЛицензий.Attribute.КонтрагентПринимающий" id="ff5a99c4-09ba-47cf-8550-41ecc5e0ffba"/>
+			<Metadata name="Document.ПередачаЛицензий.Attribute.Организация" id="9af506e2-0d7d-4964-9818-36394d1eb16a"/>
+			<Metadata name="Document.ПередачаЛицензий.TabularSection.ПередаваемыеПродукты.Attribute.Продукт" id="ff10f7af-edd4-4d2c-951d-17da33cbff64"/>
+			<Metadata name="Document.ПередачаЛицензий.TabularSection.ПередаваемыеПродукты.Attribute.РегистрационныйНомер" id="7a4963ab-148f-4f22-8460-f137c51c0277"/>
+			<Metadata name="Document.ПередачаЛицензий.TabularSection.ПередаваемыеПродукты" id="b938e316-f1d4-445f-8360-a58bc9172dcd"/>
+			<Metadata name="Document.ПередачаЛицензий.Form.ФормаДокумента" id="2903905e-e8b7-4292-ba0b-515023172c71"/>
+			<Metadata name="Document.ПередачаЛицензий.Form.ФормаСписка" id="c9096c5f-0aa7-4035-9247-f68b48f5a8d4"/>
+			<Metadata name="Document.ПередачаЛицензий.Form.ФормаТекстаАкта" id="b23f7dd7-6655-47c8-aa58-e374dc9c1d65"/>
+		</Metadata>
+		<Metadata name="Document.ПередачаЛицензий.Form.ФормаДокумента.Form" id="2903905e-e8b7-4292-ba0b-515023172c71.0" configVersion="6b9043b4d95c5f909eb3693c61c43bda8b3c6a56"/>
+		<Metadata name="Document.ПередачаЛицензий.Form.ФормаСписка.Form" id="c9096c5f-0aa7-4035-9247-f68b48f5a8d4.0" configVersion="85d09a2a44ab1f9f5dd4a2ad397666df028ff9a0"/>
+		<Metadata name="Document.ПередачаЛицензий.Form.ФормаТекстаАкта.Form" id="b23f7dd7-6655-47c8-aa58-e374dc9c1d65.0" configVersion="1e2d4aaa9c0c7ae7828af627460a64b37f3ef5f5"/>
+		<Metadata name="Document.ПередачаЛицензий.ManagerModule" id="0223668a-24da-4b84-be6b-6ca96137c817.2" configVersion="a8c9072b50471e07959e44531901d16a63986692"/>
+		<Metadata name="Document.ПередачаЛицензий.ObjectModule" id="0223668a-24da-4b84-be6b-6ca96137c817.0" configVersion="779e677a2e465026ef35cb59b61b951db27b4097"/>
+	</ConfigVersions>
+</ConfigDumpInfo>
