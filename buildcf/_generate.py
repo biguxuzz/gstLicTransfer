@@ -3,18 +3,17 @@
 """
 Генератор buildcf/ для расширения GstLicTransfer.
 
-Берёт оригинальные файлы из E:\\temp\\acc\\ (выгрузка 1С:Бухгалтерии
-предприятия 3.0.195.40) для каждого объекта, типы которого используются
-расширением, и кладёт их в buildcf/<Type>/<Name>.xml с понижением XCF
-version 2.21 -> 2.20 (требование платформы 8.3.27 на CI). Также создаёт:
-  - buildcf/Languages/Русский.xml
+Создаёт родительскую конфигурацию-заглушку для сборки расширения на CI:
+  - buildcf/Catalogs/<Имя>.xml - МИНИМАЛЬНЫЕ заглушки каталогов:
+    оригинальный UUID и имя объекта из БП 3.0.195.40, но без реквизитов,
+    форм и макетов (ChildObjects пуст). Полные копии не подходят: они
+    ссылаются на файлы форм/макетов и другие объекты БП, которых в buildcf
+    нет, из-за чего платформа падает с "Файл объекта не существует".
+    Для разрешения ссылок CatalogRef.<Имя> при импорте расширения
+    достаточно самого факта существования каталога с тем же UUID.
+  - buildcf/Languages/Русский.xml - копия из БП (XCF 2.21 -> 2.20)
   - buildcf/Configuration.xml  (родительская конфигурация-заглушка)
   - buildcf/ConfigDumpInfo.xml
-
-Расширение НЕ заимствует объекты основной конфигурации (нет adopted-объектов,
-кроме языка), но реквизиты новых объектов ссылаются на типы
-СправочникСсылка.Организации/Контрагенты/Пользователи, поэтому эти каталоги
-должны присутствовать в родительской конфигурации при сборке .cfe на CI.
 
 Запуск:
   cd E:\\git\\gstLicTransfer
@@ -37,60 +36,119 @@ PARENT_OBJECTS = [
     ("Catalog", "Пользователи",  "bffeceba-fe82-4593-9d34-edc03d99fa44"),
 ]
 
-# Каталоги во множественном числе (XCF convention)
-TYPE_DIRS = {
-    "Catalog": "Catalogs",
-    "Language": "Languages",
-}
+NS = ('xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" '
+      'xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" '
+      'xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" '
+      'xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" '
+      'xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" '
+      'xmlns:pal="http://v8.1c.ru/8.1/data/ui/colors/palette" '
+      'xmlns:style="http://v8.1c.ru/8.1/data/ui/style" '
+      'xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" '
+      'xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" '
+      'xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" '
+      'xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" '
+      'xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" '
+      'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"')
 
 
-def downgrade_xcf(content):
-    """Понижает version='2.21' -> '2.20' в MetaDataObject."""
-    return content.replace('version="2.21"', 'version="2.20"', 1)
-
-
-def copy_with_downgrade(src, dst):
-    """Копирует файл из src в dst, сохраняя BOM и понижая XCF version."""
-    with open(src, "rb") as f:
+def read_acc(relpath):
+    with open(os.path.join(ACC_ROOT, relpath), "rb") as f:
         raw = f.read()
-    has_bom = raw.startswith(b"\xef\xbb\xbf")
-    if has_bom:
+    if raw.startswith(b"\xef\xbb\xbf"):
         raw = raw[3:]
-    text = raw.decode("utf-8")
-    text = downgrade_xcf(text)
+    return raw.decode("utf-8")
+
+
+def write_file(relpath, text):
+    dst = os.path.join(BUILDCF_ROOT, relpath)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     with open(dst, "wb") as f:
-        if has_bom:
-            f.write(b"\xef\xbb\xbf")
+        f.write(b"\xef\xbb\xbf")
         f.write(text.encode("utf-8"))
+
+
+def generated_types(name):
+    """Извлекает InternalInfo/GeneratedTypes оригинального каталога из БП."""
+    src = read_acc(f"Catalogs/{name}.xml")
+    m = re.search(r"<InternalInfo>.*?</InternalInfo>", src, re.S)
+    return m.group(0) if m else "<InternalInfo/>"
+
+
+def catalog_stub(name, synonym):
+    """Минимальная заглушка каталога: uuid берется из PARENT_OBJECTS."""
+    obj_uuid = dict((n, u) for _, n, u in PARENT_OBJECTS)[name]
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject {NS} version="2.20">
+\t<Catalog uuid="{obj_uuid}">
+\t\t{generated_types(name)}
+\t\t<Properties>
+\t\t\t<Name>{name}</Name>
+\t\t\t<Synonym>
+\t\t\t\t<v8:item>
+\t\t\t\t\t<v8:lang>ru</v8:lang>
+\t\t\t\t\t<v8:content>{synonym}</v8:content>
+\t\t\t\t</v8:item>
+\t\t\t</Synonym>
+\t\t\t<Comment/>
+\t\t\t<Hierarchical>false</Hierarchical>
+\t\t\t<HierarchyType>HierarchyFoldersAndItems</HierarchyType>
+\t\t\t<LimitLevelCount>false</LimitLevelCount>
+\t\t\t<LevelCount>2</LevelCount>
+\t\t\t<FoldersOnTop>true</FoldersOnTop>
+\t\t\t<UseStandardCommands>true</UseStandardCommands>
+\t\t\t<Owners/>
+\t\t\t<SubordinationUse>ToItems</SubordinationUse>
+\t\t\t<CodeLength>9</CodeLength>
+\t\t\t<DescriptionLength>100</DescriptionLength>
+\t\t\t<CodeType>String</CodeType>
+\t\t\t<CodeAllowedLength>Variable</CodeAllowedLength>
+\t\t\t<CodeSeries>WholeCatalog</CodeSeries>
+\t\t\t<CheckUnique>false</CheckUnique>
+\t\t\t<Autonumbering>false</Autonumbering>
+\t\t\t<DefaultPresentation>AsDescription</DefaultPresentation>
+\t\t\t<Characteristics/>
+\t\t\t<QuickChoice>false</QuickChoice>
+\t\t\t<ChoiceMode>BothWays</ChoiceMode>
+\t\t\t<DefaultListForm/>
+\t\t\t<DefaultChoiceForm/>
+\t\t\t<DefaultObjectForm/>
+\t\t\t<CreateOnInput>DontUse</CreateOnInput>
+\t\t\t<ChoiceHistoryOnInput>DontUse</ChoiceHistoryOnInput>
+\t\t\t<IncludeHelpInContents>false</IncludeHelpInContents>
+\t\t\t<DataLockFields/>
+\t\t\t<DataLockControlMode>Managed</DataLockControlMode>
+\t\t\t<FullTextSearch>Use</FullTextSearch>
+\t\t\t<ObjectPresentation/>
+\t\t\t<ExtendedObjectPresentation/>
+\t\t\t<ListPresentation/>
+\t\t\t<ExtendedListPresentation/>
+\t\t\t<Explanation/>
+\t\t\t<HierarchyListPresentation/>
+\t\t\t<ExtendedHierarchyListPresentation/>
+\t\t\t<DataHistory>DontUse</DataHistory>
+\t\t\t<UpdateDataHistoryImmediatelyAfterWrite>false</UpdateDataHistoryImmediatelyAfterWrite>
+\t\t\t<ExecuteAfterWriteDataHistoryVersionProcessing>false</ExecuteAfterWriteDataHistoryVersionProcessing>
+\t\t</Properties>
+\t\t<ChildObjects/>
+\t</Catalog>
+</MetaDataObject>
+"""
 
 
 def main():
     print(f"Building {BUILDCF_ROOT}/ from {ACC_ROOT}")
 
-    # 1. Копируем каждый объект родительской конфигурации
-    copied = 0
-    missing = []
-    for obj_type, name, obj_uuid in PARENT_OBJECTS:
-        type_dir = TYPE_DIRS[obj_type]
-        src = os.path.join(ACC_ROOT, type_dir, f"{name}.xml")
-        dst = os.path.join(BUILDCF_ROOT, type_dir, f"{name}.xml")
-        if not os.path.exists(src):
-            missing.append(src)
-            continue
-        copy_with_downgrade(src, dst)
-        copied += 1
-    print(f"  Copied {copied} parent objects")
-    if missing:
-        print(f"  MISSING {len(missing)} files:")
-        for m in missing:
-            print(f"    {m}")
+    # 1. Заглушки каталогов
+    synonyms = {"Организации": "Организации", "Контрагенты": "Контрагенты", "Пользователи": "Пользователи"}
+    for _, name, _ in PARENT_OBJECTS:
+        write_file(f"Catalogs/{name}.xml", catalog_stub(name, synonyms[name]))
+        print(f"  Wrote Catalogs/{name}.xml (stub)")
 
-    # 2. Language Русский
-    src_lang = os.path.join(ACC_ROOT, "Languages", "Русский.xml")
-    dst_lang = os.path.join(BUILDCF_ROOT, "Languages", "Русский.xml")
-    copy_with_downgrade(src_lang, dst_lang)
-    print(f"  Copied Language.Русский")
+    # 2. Language Русский (копия из БП с понижением XCF-версии)
+    lang = read_acc("Languages/Русский.xml")
+    lang = lang.replace('version="2.21"', 'version="2.20"', 1)
+    write_file("Languages/Русский.xml", lang)
+    print("  Wrote Languages/Русский.xml")
 
     # 3. Configuration.xml (родительская конфигурация)
     write_configuration()
@@ -109,7 +167,7 @@ def write_configuration():
     child_objects = "\n".join(child_lines)
 
     cfg = f"""<?xml version="1.0" encoding="UTF-8"?>
-<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:pal="http://v8.1c.ru/8.1/data/ui/colors/palette" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
+<MetaDataObject {NS} version="2.20">
 \t<Configuration uuid="a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d">
 \t\t<InternalInfo>
 \t\t\t<xr:ContainedObject>
@@ -182,10 +240,7 @@ def write_configuration():
 \t</Configuration>
 </MetaDataObject>
 """
-    dst = os.path.join(BUILDCF_ROOT, "Configuration.xml")
-    with open(dst, "wb") as f:
-        f.write(b"\xef\xbb\xbf")
-        f.write(cfg.encode("utf-8"))
+    write_file("Configuration.xml", cfg)
     print(f"  Wrote Configuration.xml ({len(PARENT_OBJECTS)+1} child objects)")
 
 
@@ -194,20 +249,14 @@ def write_config_dump_info():
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.20">',
              '\t<ConfigVersions>']
-    # Configuration
     lines.append('\t\t<Metadata name="Configuration.Конфигурация" id="a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d" configVersion="a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"/>')
-    # Language
-    lines.append('\t\t<Metadata name="Language.Русский" id="db4a9ccb-9ef5-4b3c-8577-b6fe5db1b62e" configVersion="b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1"/>')
-    # Родительские объекты
+    lines.append('\t\t<Metadata name="Language.Русский" id="db4a9ccb-9ef5-4b3c-8577-b6fe5db1b62e" configVersion="b1b1b1b1b1b1b1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"/>')
     for obj_type, name, obj_uuid in PARENT_OBJECTS:
         lines.append('\t\t<Metadata name="%s.%s" id="%s" configVersion="%s"/>' % (
             obj_type, name, obj_uuid, obj_uuid[:40].replace("-", "")))
     lines.append('\t</ConfigVersions>')
     lines.append('</ConfigDumpInfo>')
-    dst = os.path.join(BUILDCF_ROOT, "ConfigDumpInfo.xml")
-    with open(dst, "wb") as f:
-        f.write(b"\xef\xbb\xbf")
-        f.write(("\n".join(lines) + "\n").encode("utf-8"))
+    write_file("ConfigDumpInfo.xml", "\n".join(lines) + "\n")
     print(f"  Wrote ConfigDumpInfo.xml ({len(PARENT_OBJECTS)+2} records)")
 
 
